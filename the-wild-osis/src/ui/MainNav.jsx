@@ -1,12 +1,15 @@
+import { HiOutlineCalendar, HiOutlineHome } from "react-icons/hi";
+import { HiOutlineCalendarDays } from "react-icons/hi2";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-
+// import {IconName} ffrom 
 const NavList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
 `;
 
-const Link = styled.a`
+const Link = styled(NavLink)`
   &:link,
   &:visited {
     display: flex;
@@ -44,3 +47,42 @@ const Link = styled.a`
     color: var(--color-brand-600);
   }
 `;
+function MainNav() {
+  return (
+    <nav>
+      <NavList>
+        <li>
+          <Link to="/dashBoard">
+            <HiOutlineHome />
+            Home</Link>
+        </li>
+        <li>
+
+          <Link to="/bookings">
+            <HiOutlineCalendarDays />
+            Booking</Link>
+        </li>
+        <li>
+
+          <Link to="/cabins">
+            <HiOutlineCalendarDays />
+            Cabins</Link>
+        </li>
+        <li>
+
+          <Link to="/users">
+            <HiOutlineCalendarDays />
+            Users</Link>
+        </li>
+        <li>
+
+          <Link to="/settings">
+            <HiOutlineCalendarDays />
+            Settings</Link>
+        </li>
+      </NavList>
+    </nav>
+  );
+}
+
+export default MainNav;
