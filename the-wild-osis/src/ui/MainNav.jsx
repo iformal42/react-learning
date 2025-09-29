@@ -48,6 +48,8 @@ const Link = styled(NavLink)`
   }
 `;
 function MainNav() {
+
+ 
   return (
     <nav>
       <NavList>
@@ -84,5 +86,6 @@ function MainNav() {
     </nav>
   );
 }
+
 
 export default MainNav;
