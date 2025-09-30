@@ -4,6 +4,7 @@ import { formatCurrency } from "../../utils/helpers";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteCabin } from "../../services/apiCabins";
 import toast from "react-hot-toast";
+import { useDelete } from "../../hooks/useDeleteCabin";
 
 const TableRow = styled.div`
   display: grid;
@@ -46,21 +47,22 @@ const Discount = styled.div`
 function CabinRow({ cabin }) {
   // eslint-disable-next-line react/prop-types
   const { id: cabinId, name, maxCapacity, regularPrice, discount, image } = cabin;
+  const mutate = useDelete()
   // console.log("irun ");
-  const queryClient = useQueryClient();
-  const { mutate } = useMutation({
-    mutationFn: deleteCabin,
-    onSuccess: () => {
-      toast.success("done");
+  // const queryClient = useQueryClient();
+  // const { mutate } = useMutation({
+  //   mutationFn: deleteCabin,
+  //   onSuccess: () => {
+  //     toast.success("done");
 
-      queryClient.invalidateQueries({
-        queryKey: ["cabin"]
-      })
-    },
-    onError: (err) => toast.error(err.message)
+  //     queryClient.invalidateQueries({
+  //       queryKey: ["cabin"]
+  //     })
+  //   },
+  //   onError: (err) => toast.error(err.message)
 
 
-  })
+  // })
   return (
     <TableRow role="row">
       <Img src={image} />

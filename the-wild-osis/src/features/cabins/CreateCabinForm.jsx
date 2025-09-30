@@ -6,6 +6,10 @@ import { Button } from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import { useForm } from "react-hook-form";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { addCabin } from "../../services/apiCabins";
+import toast from "react-hot-toast";
+import { useCreateCabin } from "../../hooks/useCreateCabin";
 
 const FormRow = styled.div`
   display: grid;
@@ -44,8 +48,31 @@ const Error = styled.span`
 `;
 
 function CreateCabinForm() {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
+  const {mutate,isPending}= useCreateCabin();
+
+  // const { mutate, isPending } = useMutation({
+  //   mutationFn: addCabin,
+  //   onSuccess: () => {
+  //     toast.success("created cabin");
+  //     client.invalidateQueries(
+  //       {
+  //         queryKey: ["cabin"]
+  //       }
+  //     )
+  //     reset()
+  //   },
+  //   onError: () => toast.error("error")
+
+  // })
+
   async function onSubmit(data) {
+    // console.log("data", data);
+    mutate({...data, image:data.image[0]},{
+      onSuccess: (data)=>{
+        console.log(data);
+        reset()}
+    })
 
   }
   return (
@@ -77,15 +104,15 @@ function CreateCabinForm() {
 
       <FormRow>
         <Label htmlFor="image">Cabin photo</Label>
-        <FileInput id="image" {...register("image")} accept="image/*" />
+        <FileInput id="image" {...register("image")} type="file" accept="image/*" />
       </FormRow>
 
       <FormRow>
         {/* type is an HTML attribute! */}
-        <Button variation="secondary" type="reset">
+        {/* <Button variation="secondary" type="reset">
           Cancel
-        </Button>
-        <Button>Edit cabin</Button>
+        </Button> */}
+        <Button>Add cabin</Button>
       </FormRow>
     </Form>
   );
